@@ -1,0 +1,13 @@
+<div class="mb-4 flex items-center justify-between">
+  <h2 class="text-lg font-semibold text-slate-900">
+    My Applications ({{ applications().length }})
+  </h2>
+</div>
+
+<div class="grid gap-3 sm:grid-cols-2">
+  @for (app of applications(); track app.id) {
+    <app-application-card [application]="app" (selected)="onSelected($event)" />
+  } @empty {
+    <p class="text-slate-500">No applications yet.</p>
+  }
+</div>
