@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { JobApplication } from '../../../../core/models/application.model';
+import { Component, inject } from '@angular/core';
 import { ApplicationCard } from '../../components/application-card/application-card';
+import { ApplicationService } from '../../../../core/services/application.service';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-application-list',
@@ -8,25 +9,33 @@ import { ApplicationCard } from '../../components/application-card/application-c
   templateUrl: './application-list.html',
 })
 export class ApplicationList {
-  applications = signal<JobApplication[]>([
-    { id: 1, company: 'Acme', role: 'Frontend Dev', status: 'APPLIED', appliedDate: '2026-10-01' },
-    {
-      id: 2,
-      company: 'Globex',
-      role: 'Full Stack Dev',
-      status: 'INTERVIEW',
-      appliedDate: '2026-10-05',
-    },
-    {
-      id: 3,
-      company: 'Initech',
-      role: 'Angular Dev',
-      status: 'WISHLIST',
-      appliedDate: '2026-10-10',
-    },
-  ]);
+  private readonly service = inject(ApplicationService);
+  private readonly toast = inject(ToastService);
+
+  applications = this.service.applications;
+  interviewCount = this.service.interviewCount;
 
   onSelected(id: number) {
     console.log('selected', id);
+  }
+
+  addSample() {
+    this.service.add({
+      company: 'New Co',
+      role: 'UI Engineer',
+      status: 'WISHLIST',
+      appliedDate: new Date().toISOString().slice(0, 10),
+    });
+    this.toast.show('Application added');
+  }
+
+  remove(id: number) {
+    this.service.remove(id);
+    this.toast.show('Application removed');
+  }
+
+  updateStatus({ id, status }: { id: number; status: string }) {
+    this.service.updateStatus(id, status as any);
+    this.toast.show('Application status updated');
   }
 }

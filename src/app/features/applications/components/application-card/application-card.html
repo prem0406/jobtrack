@@ -11,4 +11,22 @@
       {{ application().status }}
     </span>
   </div>
+  <div class="mt-3 flex items-center justify-between gap-3" (click)="$event.stopPropagation()">
+    <button
+      (click)="onDelete(); $event.stopPropagation()"
+      class="mt-3 rounded-md bg-red-600 px-3 py-1.5 text-sm text-white hover:bg-red-700"
+    >
+      Delete
+    </button>
+    <select
+      (change)="onStatusChange($event); $event.stopPropagation()"
+      class="mt-3 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-900 focus:border-slate-500 focus:outline-none"
+    >
+      @for (status of ['WISHLIST', 'APPLIED', 'INTERVIEW', 'OFFER', 'REJECTED']; track status) {
+        <option [value]="status" [selected]="status === application().status">
+          {{ status }}
+        </option>
+      }
+    </select>
+  </div>
 </article>

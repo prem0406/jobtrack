@@ -1,12 +1,26 @@
 <div class="mb-4 flex items-center justify-between">
   <h2 class="text-lg font-semibold text-slate-900">
     My Applications ({{ applications().length }})
+    <span class="ml-2 text-sm font-normal text-amber-700">
+      {{ interviewCount() }} interviewing
+    </span>
   </h2>
+  <button
+    (click)="addSample()"
+    class="rounded-md bg-slate-900 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
+  >
+    + Add sample
+  </button>
 </div>
 
 <div class="grid gap-3 sm:grid-cols-2">
   @for (app of applications(); track app.id) {
-    <app-application-card [application]="app" (selected)="onSelected($event)" />
+    <app-application-card
+      [application]="app"
+      (selected)="onSelected($event)"
+      (deleted)="remove($event)"
+      (updatedStatus)="updateStatus({ id: $event.id, status: $event.status })"
+    />
   } @empty {
     <p class="text-slate-500">No applications yet.</p>
   }

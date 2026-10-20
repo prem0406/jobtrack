@@ -4,3 +4,10 @@
 <main class="mx-auto max-w-4xl p-6">
   <router-outlet />
 </main>
+@if (toast.message(); as msg) {
+  <div
+    class="fixed bottom-4 right-4 rounded-md bg-slate-900 px-4 py-2 text-sm text-white shadow-lg"
+  >
+    {{ msg }}
+  </div>
+}

@@ -16,10 +16,22 @@ const STATUS_STYLES: Record<ApplicationStatus, string> = {
 export class ApplicationCard {
   application = input.required<JobApplication>();
   selected = output<number>();
+  deleted = output<number>();
+  updatedStatus = output<{ id: number; status: ApplicationStatus }>();
 
   statusClasses = computed(() => STATUS_STYLES[this.application().status]);
 
   onClick() {
     this.selected.emit(this.application().id);
+  }
+
+  onDelete() {
+    this.deleted.emit(this.application().id);
+  }
+
+  onStatusChange(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const newStatus = select.value as ApplicationStatus;
+    this.updatedStatus.emit({ id: this.application().id, status: newStatus });
   }
 }
