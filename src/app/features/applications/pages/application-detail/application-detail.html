@@ -1,1 +1,47 @@
-<p>application-detail works!</p>
+@if (application(); as app) {
+  <a routerLink="/applications" class="text-sm text-slate-600 hover:underline">&larr; Back</a>
+
+  <div class="mt-4 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="flex items-start justify-between">
+      <div>
+        <h2 class="text-2xl font-semibold text-slate-900">{{ app.company }}</h2>
+        <p class="text-slate-600">{{ app.role }}</p>
+      </div>
+      <span class="rounded-full bg-slate-100 px-3 py-1 text-sm">{{ app.status }}</span>
+    </div>
+
+    <dl class="mt-6 grid grid-cols-2 gap-4 text-sm">
+      <div>
+        <dt class="text-slate-500">Applied</dt>
+        <dd>{{ app.appliedDate }}</dd>
+      </div>
+      <div>
+        <dt class="text-slate-500">Location</dt>
+        <dd>{{ app.location ?? '-' }}</dd>
+      </div>
+      <div>
+        <dt class="text-slate-500">Salary</dt>
+        <dd>{{ app.salary ?? '-' }}</dd>
+      </div>
+    </dl>
+
+    @if (app.notes) {
+      <p class="mt-6 whitespace-pre-line text-sm text-slate-700">{{ app.notes }}</p>
+    }
+
+    <div class="mt-6 flex gap-3">
+      <a
+        [routerLink]="['/applications', app.id, 'edit']"
+        class="rounded-md bg-slate-900 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
+      >
+        Edit
+      </a>
+      <button
+        (click)="delete()"
+        class="rounded-md bg-red-600 px-3 py-1.5 text-sm text-white hover:bg-red-700"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+}

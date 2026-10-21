@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
-  imports: [],
   selector: 'app-application-form',
-  styleUrl: './application-form.css',
   templateUrl: './application-form.html',
 })
-export class ApplicationForm {}
+export class ApplicationForm {
+  id = input<string>(); // undefined on /applications/new
+  isEdit = computed(() => !!this.id());
+}
