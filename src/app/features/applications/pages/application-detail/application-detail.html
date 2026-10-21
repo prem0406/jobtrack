@@ -23,6 +23,18 @@
         <dt class="text-slate-500">Salary</dt>
         <dd>{{ app.salary ?? '-' }}</dd>
       </div>
+      <div>
+        <select
+          (change)="updateStatus($event); $event.stopPropagation()"
+          class="mt-3 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-900 focus:border-slate-500 focus:outline-none"
+        >
+          @for (status of ['WISHLIST', 'APPLIED', 'INTERVIEW', 'OFFER', 'REJECTED']; track status) {
+            <option [value]="status" [selected]="status === application()?.status">
+              {{ status }}
+            </option>
+          }
+        </select>
+      </div>
     </dl>
 
     @if (app.notes) {

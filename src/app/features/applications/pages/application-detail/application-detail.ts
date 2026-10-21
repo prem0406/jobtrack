@@ -2,6 +2,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ApplicationService } from '../../../../core/services/application.service';
 import { ToastService } from '../../../../core/services/toast.service';
+import { ApplicationStatus } from '../../../../core/models/application.model';
 
 @Component({
   selector: 'app-application-detail',
@@ -23,5 +24,12 @@ export class ApplicationDetail {
     this.service.remove(app.id);
     this.toast.show('Application removed');
     this.router.navigate(['/applications']);
+  }
+
+  updateStatus(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const newStatus = select.value as ApplicationStatus;
+    this.service.updateStatus(Number(this.id()), newStatus);
+    this.toast.show('Status updated');
   }
 }

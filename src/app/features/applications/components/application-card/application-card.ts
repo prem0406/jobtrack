@@ -1,5 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
 import { ApplicationStatus, JobApplication } from '../../../../core/models/application.model';
+import { RouterLink } from '@angular/router';
 
 const STATUS_STYLES: Record<ApplicationStatus, string> = {
   WISHLIST: 'bg-slate-100 text-slate-700',
@@ -12,6 +13,7 @@ const STATUS_STYLES: Record<ApplicationStatus, string> = {
 @Component({
   selector: 'app-application-card',
   templateUrl: './application-card.html',
+  imports: [RouterLink],
 })
 export class ApplicationCard {
   application = input.required<JobApplication>();
