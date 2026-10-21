@@ -1,9 +1,31 @@
-<header class="bg-slate-900 px-6 py-4 text-white">
-  <h1 class="text-xl font-semibold">JobTrack</h1>
+<header class="bg-slate-900 text-white">
+  <nav class="mx-auto flex max-w-4xl items-center gap-6 px-6 py-4">
+    <a routerLink="/applications" class="text-xl font-semibold">JobTrack</a>
+
+    <a
+      routerLink="/applications"
+      routerLinkActive="underline underline-offset-4"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="text-sm"
+    >
+      Applications
+    </a>
+
+    <a
+      routerLink="/applications/new"
+      routerLinkActive="underline underline-offset-4"
+      class="text-sm"
+    >
+      Add new
+    </a>
+  </nav>
 </header>
+
 <main class="mx-auto max-w-4xl p-6">
   <router-outlet />
 </main>
+
+<!-- keep your toast block below -->
 @if (toast.message(); as msg) {
   <div
     class="fixed bottom-4 right-4 rounded-md bg-slate-900 px-4 py-2 text-sm text-white shadow-lg"

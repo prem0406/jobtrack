@@ -1,5 +1,13 @@
 export type ApplicationStatus = 'WISHLIST' | 'APPLIED' | 'INTERVIEW' | 'OFFER' | 'REJECTED';
 
+export const APPLICATION_STATUSES: ApplicationStatus[] = [
+  'WISHLIST',
+  'APPLIED',
+  'INTERVIEW',
+  'OFFER',
+  'REJECTED',
+];
+
 export interface JobApplication {
   id: number;
   company: string;

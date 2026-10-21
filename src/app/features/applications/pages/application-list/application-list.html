@@ -1,3 +1,26 @@
+<nav class="mb-4 flex flex-wrap gap-2">
+  <a
+    routerLink="/applications"
+    class="rounded-full border border-slate-300 px-3 py-1 text-sm"
+    [class.bg-slate-900]="!status()"
+    [class.text-white]="!status()"
+  >
+    All
+  </a>
+
+  @for (s of statuses; track s) {
+    <a
+      routerLink="/applications"
+      [queryParams]="{ status: s }"
+      class="rounded-full border border-slate-300 px-3 py-1 text-sm"
+      [class.bg-slate-900]="status() === s"
+      [class.text-white]="status() === s"
+    >
+      {{ s }}
+    </a>
+  }
+</nav>
+
 <div class="mb-4 flex items-center justify-between">
   <h2 class="text-lg font-semibold text-slate-900">
     My Applications ({{ applications().length }})
@@ -14,7 +37,7 @@
 </div>
 
 <div class="grid gap-3 sm:grid-cols-2">
-  @for (app of applications(); track app.id) {
+  @for (app of filtered(); track app.id) {
     <app-application-card
       [application]="app"
       (selected)="onSelected($event)"
